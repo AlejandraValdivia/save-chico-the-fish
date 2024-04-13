@@ -21,8 +21,8 @@ const sharkImg = document.getElementById("shark");
 // EVENT LISTENERS
 window.addEventListener("DOMContentLoaded", function () {
   console.log("DOMContentLoaded");
-  chicoCharacter = new Character(200, 280, fishImg, 20, 40);
-  shark = new Character(20, 80, sharkImg, 250, 100);
+  chicoCharacter = new Character(200, 280, fishImg, 60, 80);
+  shark = new Character(20, 80, sharkImg, 150, 250);
 
   // run a game loop
   const runGame = setInterval(gameLoop, 60);
@@ -60,11 +60,10 @@ class Character {
     this.image = image;
     this.width = width;
     this.height = height;
-    this.height = height;
     this.alive = true;
 
     this.render = function () {
-      ctx.drawImage(this.x, this.y, this.image, this.width, this.height);
+      ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     };
   }
 }
@@ -72,8 +71,8 @@ class Character {
 // let rambo = new Crawler(600, 200, "red", 75, 75);
 // rambo.render(); // test the rambo(Crawler) instance
 
-let testCrawler = new Crawler(150, 20, "blue", 100, 100);
-testCrawler.render();
+// let testCrawler = new Crawler(150, 20, "blue", 100, 100);
+// testCrawler.render();
 
 // KEYBOARD LOGIC =================
 function movementHandler(e) {
@@ -113,12 +112,44 @@ function addNewShark() {
 function gameLoop() {
   ctx.clearRect(0, 0, game.width, game.height);
   movement.textContent = `X: ${chicoCharacter.x}\nY: ${chicoCharacter.y}`;
-  if (chicoCharacter.alive) {
-    chicoCharacter.render();
+  if (shark.alive) {
+    shark.render();
   }
-  mushroomCharacter.render();
+  chicoCharacter.render();
 }
 
 // ====================== COLLISION DETECTION ======================= //
+function detectHit(player, opp) {
+  hitTest(boolean);
+  console.log(
+    "player.y + player.height > opp.y :",
+    player.y + player.height > opp.y
+  );
+  console.log("player.y < opp.y + opp.height :", player.y < opp.y + opp.height);
+  console.log(
+    "player.x + player.width > opp.x :",
+    player.x + player.width > opp.x
+  );
+  console.log("player.x < opp.x + opp.width :", player.x < opp.x + opp.width);
 
+  // hittest returns a boolean
+  let hitTest =
+    player.y + player.height > opp.y &&
+    player.y < opp.y + opp.height &&
+    player.x + player.width > opp.x &&
+    player.x < opp.x + opp.width;
+  // console.log("we have a hit", hitTest);
+  if (hitTest) {
+    // add 100 points to the current score
+    // console.log(score.textContent); // dataType? Number
+    let newScore = Number(score.textContent) + 100;
+    score.textContent = newScore;
+    // update status
+
+    // return a new shrek with the addNewShrek function
+    return addNewShark(); // true
+  } else {
+    return false;
+  }
+}
 // ====================== EXTRAS ======================= //

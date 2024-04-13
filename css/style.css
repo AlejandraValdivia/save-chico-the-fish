@@ -6,9 +6,8 @@ body {
 
 body {
   text-align: center;
-  background-color: rgb(160, 185, 252);
+  background-color: rgb(182, 202, 255);
   /* background-image: url("img/4162773.jpg"); */
-  background-size: cover no-repeat;
 }
 
 h1,
@@ -32,12 +31,13 @@ h2 {
   font-size: 2rem;
   color: #fff;
   /* padding-bottom: 10px; */
-} */
+/* } */
 
 canvas {
-  background-image: url("./img/4162773.jpg") no-repeat center center cover;
+  /* background-image: url("./img/4162773.jpg"); */
+  background-color: rgb(147, 231, 254);
   width: 100%;
-  height: 100%;
+  height: 60vh;
 }
 
 #container {
@@ -48,7 +48,7 @@ canvas {
   padding: 1rem;
   display: grid;
   grid-gap: 1rem;
-  grid-template-rows: 0.25fr .25fr 0.2fr 0.25fr;
+  grid-template-rows: 0.25fr .25fr 0.25fr;
   grid-template-columns: 0.25fr .25fr 0.25fr 0.25fr;
   grid-template-areas:
     "top-left top-left top-right top-right"
