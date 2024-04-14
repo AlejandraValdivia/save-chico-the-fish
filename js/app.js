@@ -22,8 +22,9 @@ const sharkImg = document.getElementById("shark");
 window.addEventListener("DOMContentLoaded", function () {
   console.log("DOMContentLoaded");
   chicoCharacter = new Character(200, 280, fishImg, 60, 80);
-  shark = new Character(20, 80, sharkImg, 150, 250);
+  shark = new Character(620, 400, sharkImg, 120, 220);
 
+  console.log("shark", sharkImg);
   // run a game loop
   const runGame = setInterval(gameLoop, 60);
 });
@@ -68,12 +69,6 @@ class Character {
   }
 }
 
-// let rambo = new Crawler(600, 200, "red", 75, 75);
-// rambo.render(); // test the rambo(Crawler) instance
-
-// let testCrawler = new Crawler(150, 20, "blue", 100, 100);
-// testCrawler.render();
-
 // KEYBOARD LOGIC =================
 function movementHandler(e) {
   console.log("--movement: " + e.key);
@@ -100,11 +95,20 @@ function addNewShark() {
   setTimeout(function () {
     let randomX = Math.floor(Math.random() * game.width - 50);
     let randomY = Math.floor(Math.random() * game.height - 90);
-    const colors = ["#bada55", "purple", "cyan", "gold", " blue"];
+    const colors = [
+      "yellow",
+      "purple",
+      "cyan",
+      "gold",
+      "blue",
+      "peru",
+      "red",
+      "green",
+    ];
     let randomIndex = Math.floor(Math.random() * colors.length - 1);
     let randomColor = colors[randomIndex];
-    shark = new Character(randomX, randomY, shark, 200, 120);
-  }, 10000);
+    shark = new Character(randomX, randomY, sharkImg, 200, 420);
+  }, 5000);
   return true;
 }
 
@@ -114,24 +118,13 @@ function gameLoop() {
   movement.textContent = `X: ${chicoCharacter.x}\nY: ${chicoCharacter.y}`;
   if (shark.alive) {
     shark.render();
+    let hit = detectHit(chicoCharacter, shark);
   }
   chicoCharacter.render();
 }
 
 // ====================== COLLISION DETECTION ======================= //
 function detectHit(player, opp) {
-  hitTest(boolean);
-  console.log(
-    "player.y + player.height > opp.y :",
-    player.y + player.height > opp.y
-  );
-  console.log("player.y < opp.y + opp.height :", player.y < opp.y + opp.height);
-  console.log(
-    "player.x + player.width > opp.x :",
-    player.x + player.width > opp.x
-  );
-  console.log("player.x < opp.x + opp.width :", player.x < opp.x + opp.width);
-
   // hittest returns a boolean
   let hitTest =
     player.y + player.height > opp.y &&
@@ -145,7 +138,20 @@ function detectHit(player, opp) {
     let newScore = Number(score.textContent) + 100;
     score.textContent = newScore;
     // update status
+    setTimeout(function () {
+      status.textContent = "The shark is hit!";
+      const typed = new Typed("#status", {
+        strings: ["The shark is hit!", "You got him!", "Target acquired!"],
+        typeSpeed: 50,
+        backSpeed: 50,
+        backDelay: 1000,
+        // loop: true
+      });
+    }, 250);
 
+    setTimeout(function () {
+      status.textContent = "Oh, no!! The shark is back!";
+    }, 10000);
     // return a new shrek with the addNewShrek function
     return addNewShark(); // true
   } else {

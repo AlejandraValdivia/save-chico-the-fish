@@ -34,27 +34,28 @@ h2 {
 /* } */
 
 canvas {
-  /* background-image: url("./img/4162773.jpg"); */
-  background-color: rgb(147, 231, 254);
+  background-image: url("../img/4162773.jpg");
+  /* background-color: rgb(147, 231, 254); */
   width: 100%;
-  height: 60vh;
+  height: 58vh;
+  z-index: 10;
 }
 
 #container {
   max-width: 100rem;
-  height: 70vh;
+  height: 80vh;
   background-color: aqua;
   margin: 0 auto;
   padding: 1rem;
   display: grid;
   grid-gap: 1rem;
-  grid-template-rows: 0.25fr .25fr 0.25fr;
-  grid-template-columns: 0.25fr .25fr 0.25fr 0.25fr;
+  grid-template-rows: 0.25fr 0.25fr 0.25fr;
+  grid-template-columns: 0.25fr 0.25fr 0.25fr 0.25fr;
   grid-template-areas:
     "top-left top-left top-right top-right"
     "game game game game"
     "bottom-left bottom-left bottom-right bottom-right";
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 #top-left,
@@ -74,6 +75,7 @@ canvas {
 #top-right {
   grid-area: top-right;
   background-color: #f5f3ff;
+  width: 30%;
   /* background-image: url('../img/funky-lines.png'); */
 }
 
@@ -84,13 +86,14 @@ main {
 #bottom-left {
   grid-area: bottom-left;
   background-color: #ea9393;
+  width: 20%;
 }
 
 #bottom-right {
   grid-area: bottom-right;
-  background-color: #b4b4b4;
+  background-color: #ffdbdb;
 }
 
 button {
-    margin-left: 2rem;
+  margin: 2rem;
 }
