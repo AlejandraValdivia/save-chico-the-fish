@@ -36,6 +36,7 @@ h2 {
 canvas {
   background-image: url("../img/4162773.jpg");
   /* background-color: rgb(147, 231, 254); */
+  background-size: cover;
   width: 100%;
   height: 58vh;
   z-index: 10;
@@ -92,6 +93,7 @@ main {
 #bottom-right {
   grid-area: bottom-right;
   background-color: #ffdbdb;
+  width: 40%;
 }
 
 button {

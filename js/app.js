@@ -7,6 +7,9 @@ const ctx = game.getContext("2d");
 let chicoCharacter;
 let shark;
 const fishImg = document.getElementById("chico-fish");
+let initialSharkInterval = 5000;
+let sharkInterval = initialSharkInterval;
+let previousSharkTime = Date.now();
 // fishImg.style.position = "absolute";
 // fishImg.style.width = "100px";
 // fishImg.style.height = "100px";
@@ -23,6 +26,7 @@ window.addEventListener("DOMContentLoaded", function () {
   console.log("DOMContentLoaded");
   chicoCharacter = new Character(200, 280, fishImg, 60, 80);
   shark = new Character(620, 400, sharkImg, 120, 220);
+  
 
   console.log("shark", sharkImg);
   // run a game loop
@@ -108,7 +112,7 @@ function addNewShark() {
     let randomIndex = Math.floor(Math.random() * colors.length - 1);
     let randomColor = colors[randomIndex];
     shark = new Character(randomX, randomY, sharkImg, 200, 420);
-  }, 5000);
+  }, 1000);
   return true;
 }
 
@@ -116,9 +120,15 @@ function addNewShark() {
 function gameLoop() {
   ctx.clearRect(0, 0, game.width, game.height);
   movement.textContent = `X: ${chicoCharacter.x}\nY: ${chicoCharacter.y}`;
+  if (Date.now() - previousSharkTime > sharkInterval){
+    addNewShark();
+    previousSharkTime = Date.now();
+    sharkInterval += 1000;
+  }
   if (shark.alive) {
     shark.render();
     let hit = detectHit(chicoCharacter, shark);
+    
   }
   chicoCharacter.render();
 }
@@ -159,3 +169,4 @@ function detectHit(player, opp) {
   }
 }
 // ====================== EXTRAS ======================= //
+// Level up:
