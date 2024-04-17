@@ -26,7 +26,7 @@ const twoSharksImg = document.getElementById("two-sharks");
 // EVENT LISTENERS
 window.addEventListener("DOMContentLoaded", function () {
   console.log("DOMContentLoaded");
-  chicoCharacter = new Character(200, 280, fishImg, 100, 150);
+  chicoCharacter = new Character(200, 280, fishImg, 200, 250);
   shark = new Character(620, 400, sharkImg, 300, 300);
   //   twoSharks = new Character(200, 300, twoSharksImg, 300, 300); //
 

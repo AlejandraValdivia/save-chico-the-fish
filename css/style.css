@@ -17,46 +17,30 @@ h2 {
   font-style: normal;
 }
 
-/* .header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(57, 57, 255);
-  margin-top: 0;
-}
-
-.header h1 {
-  font-family: "Bowlby One SC", sans-serif;
-  font-weight: 700;
-  font-size: 2rem;
-  color: #fff;
-  /* padding-bottom: 10px; */
-/* } */
-
 canvas {
   background-image: url("../img/4162773.jpg");
   /* background-color: rgb(147, 231, 254); */
   background-size: cover;
   width: 100%;
-  height: 75vh;
+  height: 85vh;
   z-index: 20;
 }
 
 #container {
   max-width: 100rem;
-  height: 95vh;
+  height: 100vh;
   background-color: aqua;
   margin: 0 auto;
   padding: 1rem;
   display: grid;
   grid-gap: 1rem;
-  grid-template-rows: 0.25fr 0.25fr 0.25fr;
-  grid-template-columns: 0.25fr 0.25fr 0.25fr 0.25fr;
+  grid-template-rows: 0.15fr 0.5fr;
+  grid-template-columns:  1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas:
-    "top-left top-left top-right top-right"
-    "game game game game"
-    "bottom-left bottom-left bottom-right bottom-right";
-  overflow: hidden;
+    "top-left top-left top-left top-left top-right top-right top-right top-right"
+    "game game game game game game game game"
+    /* "bottom-left bottom-left bottom-right bottom-right"; */
+  
 }
 
 #top-left,
@@ -66,7 +50,7 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ffffff;
+  background-color: #f5f3ff;
   padding: 0;
 }
 
@@ -74,10 +58,10 @@ canvas {
   grid-area: top-left;
 } */
 
-/* #top-right {
+#top-right {
   background-color: #f5f3ff;
   /* background-image: url('../img/funky-lines.png'); */
-/*} */
+}
 
 main {
   grid-area: game;
@@ -85,16 +69,16 @@ main {
 
 #bottom-left {
   /* grid-area: bottom-left; */
-  background-color: #ea9393;
+  /* background-color: #ea9393;
   color: #fff;
   width: 20%;
-  line-height: 1;
+  line-height: 1; */
 }
 
 #bottom-right {
   /* grid-area: bottom-right; */
-  background-color: #ffdbdb;
-  width: 40%;
+  /* background-color: #ffdbdb; */
+  /* width: 40%; */
 }
 
 button {
