@@ -19,13 +19,6 @@ let previousSharkTime = Date.now();
 // fishImg.style.top = "350px";
 // fishImg.style.left = "500px";
 
-//  when someone clicks on the restart button make an event listener, call a function
-// that i have to make (restartGame) reset all of my important varibles
-//initialSharkInterval, sharkInterval
-//change the shark.x position to update the previousShark time to Date.Now(), clear canvas
-// render chicoCarachter
-// console.log(fishImg);
-
 const sharkImg = document.getElementById("shark");
 const twoSharksImg = document.getElementById("two-sharks");
 // console.log(sharkImg);
@@ -131,13 +124,19 @@ function addNewShark() {
 }
 
 // ====================== GAME PROCESSES ======================= //
+// This function takes care of the game and everytyhing the characters are doing
 function gameLoop() {
   ctx.clearRect(0, 0, game.width, game.height);
   movement.textContent = `X: ${chicoCharacter.x}\nY: ${chicoCharacter.y}`;
   if (chicoCharacter.x >= game.width - chicoCharacter.width) {
+    newScore = Number(score.textContent) + 100;
+    score.textContent = newScore;
     chicoCharacter.x = 0;
     sharkInterval -= 2000;
     shark.x += 100;
+  }
+  if (newScore === 300) {
+    winGame();
   }
   if (Date.now() - previousSharkTime > sharkInterval) {
     addNewShark();
@@ -166,11 +165,13 @@ function detectHit(player, opp) {
     chicoCharacter.x = 200;
     chicoCharacter.y = 280;
 
+    // call loose function
+    lostGame();
+
     document.removeEventListener("keydown", movementHandler);
     // add100 points to the current score
     // console.log(score.textContent); // dataType? Number
-    newScore = Number(score.textContent) + 100;
-    score.textContent = newScore;
+
     // update status
     setTimeout(function () {
       status.textContent = "The shark is hit!";
@@ -194,11 +195,19 @@ function detectHit(player, opp) {
 }
 // ====================== EXTRAS ======================= //
 // --------- Restart game
+//  when someone clicks on the restart button make an event listener, call a function
+// that i have to make (restartGame) reset all of my important varibles
+//initialSharkInterval, sharkInterval
+//change the shark.x position to update the previousShark time to Date.Now(), clear canvas
+// render chicoCarachter
+
 const restart = document.getElementById("restart");
 restart.addEventListener("click", restartGame);
 
 function restartGame() {
   fishImg.src = "./img/10550885.png";
+  let newScore = 0;
+  score.textContent = newScore;
   initialSharkInterval = 5000;
   sharkInterval = initialSharkInterval;
   ctx.clearRect(0, 0, game.width, game.height);
@@ -206,6 +215,14 @@ function restartGame() {
   previousSharkTime = Date.now();
   chicoCharacter.render();
   shark.render();
+  const winMessage = document.querySelector(".win-message");
+  if (winMessage) {
+    winMessage.remove();
+  }
+  const lostMessage = document.querySelector(".lost-message");
+  if (lostMessage) {
+    lostMessage.remove();
+  }
 }
 
 // Level up:
@@ -215,11 +232,29 @@ function restartGame() {
 // create a variable counter
 // every time you make it to the end add by 100 once you make it to 500 points you win and display a
 // message: you win
+
 function winGame() {
   const winningMessage = document.createElement("div");
+  winningMessage.setAttribute("class", "win-message");
   winningMessage.textContent = "Congratulations You win!";
-  const youWinMsg = document.getElementById("score");
-  youWinMsg.appendChild(winningMessage);
+  winningMessage.style.color = "green";
+  winningMessage.style.fontSize = "24px";
+  winningMessage.style.position = "absolute"; // Position the message
+  winningMessage.style.top = "50%"; // Center vertically
+  winningMessage.style.left = "50%"; // Center horizontally
+  winningMessage.style.transform = "translate(-50%, -50%)"; // Center the message
+  document.body.appendChild(winningMessage);
 }
 
-function score500(e) {}
+function lostGame() {
+  const lostMessage = document.createElement("div");
+  lostMessage.setAttribute("class", "lost-message");
+  lostMessage.textContent = "Sorry You lost!";
+  lostMessage.style.color = "red";
+  lostMessage.style.fontSize = "24px";
+  lostMessage.style.position = "absolute"; // Position the message
+  lostMessage.style.top = "50%"; // Center vertically
+  lostMessage.style.left = "50%"; // Center horizontally
+  lostMessage.style.transform = "translate(-50%, -50%)"; // Center the message
+  document.body.appendChild(lostMessage);
+}

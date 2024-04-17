@@ -74,10 +74,10 @@ canvas {
   grid-area: top-left;
 } */
 
-#top-right {
+/* #top-right {
   background-color: #f5f3ff;
   /* background-image: url('../img/funky-lines.png'); */
-}
+/*} */
 
 main {
   grid-area: game;
