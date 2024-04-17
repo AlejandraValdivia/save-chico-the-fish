@@ -4,8 +4,10 @@ const movement = document.getElementById("movement");
 const score = document.getElementById("score");
 const status = document.getElementById("status");
 const ctx = game.getContext("2d");
+let newScore = 0;
 let chicoCharacter;
 let shark;
+let twoSharks;
 const fishImg = document.getElementById("chico-fish");
 let initialSharkInterval = 5000;
 let sharkInterval = initialSharkInterval;
@@ -17,16 +19,23 @@ let previousSharkTime = Date.now();
 // fishImg.style.top = "350px";
 // fishImg.style.left = "500px";
 
+//  when someone clicks on the restart button make an event listener, call a function
+// that i have to make (restartGame) reset all of my important varibles
+//initialSharkInterval, sharkInterval
+//change the shark.x position to update the previousShark time to Date.Now(), clear canvas
+// render chicoCarachter
 // console.log(fishImg);
+
 const sharkImg = document.getElementById("shark");
+const twoSharksImg = document.getElementById("two-sharks");
 // console.log(sharkImg);
 // ====================== PAINT INTIAL SCREEN ======================= //
 // EVENT LISTENERS
 window.addEventListener("DOMContentLoaded", function () {
   console.log("DOMContentLoaded");
-  chicoCharacter = new Character(200, 280, fishImg, 60, 80);
-  shark = new Character(620, 400, sharkImg, 120, 220);
-  
+  chicoCharacter = new Character(200, 280, fishImg, 100, 150);
+  shark = new Character(620, 400, sharkImg, 300, 300);
+  //   twoSharks = new Character(200, 300, twoSharksImg, 300, 300); //
 
   console.log("shark", sharkImg);
   // run a game loop
@@ -92,6 +101,10 @@ function movementHandler(e) {
   }
 }
 
+function sharkMovement(e) {
+  twoSharks.push(e);
+}
+
 // ====================== HELPER FUNCTIONS ======================= //
 
 function addNewShark() {
@@ -113,6 +126,7 @@ function addNewShark() {
     let randomColor = colors[randomIndex];
     shark = new Character(randomX, randomY, sharkImg, 200, 420);
   }, 1000);
+
   return true;
 }
 
@@ -120,15 +134,20 @@ function addNewShark() {
 function gameLoop() {
   ctx.clearRect(0, 0, game.width, game.height);
   movement.textContent = `X: ${chicoCharacter.x}\nY: ${chicoCharacter.y}`;
-  if (Date.now() - previousSharkTime > sharkInterval){
+  if (chicoCharacter.x >= game.width - chicoCharacter.width) {
+    chicoCharacter.x = 0;
+    sharkInterval -= 2000;
+    shark.x += 100;
+  }
+  if (Date.now() - previousSharkTime > sharkInterval) {
     addNewShark();
     previousSharkTime = Date.now();
     sharkInterval += 1000;
   }
   if (shark.alive) {
+    shark.x += 5;
     shark.render();
     let hit = detectHit(chicoCharacter, shark);
-    
   }
   chicoCharacter.render();
 }
@@ -143,9 +162,14 @@ function detectHit(player, opp) {
     player.x < opp.x + opp.width;
   // console.log("we have a hit", hitTest);
   if (hitTest) {
-    // add 100 points to the current score
+    fishImg.src = "./img/bones.png";
+    chicoCharacter.x = 200;
+    chicoCharacter.y = 280;
+
+    document.removeEventListener("keydown", movementHandler);
+    // add100 points to the current score
     // console.log(score.textContent); // dataType? Number
-    let newScore = Number(score.textContent) + 100;
+    newScore = Number(score.textContent) + 100;
     score.textContent = newScore;
     // update status
     setTimeout(function () {
@@ -169,4 +193,33 @@ function detectHit(player, opp) {
   }
 }
 // ====================== EXTRAS ======================= //
+// --------- Restart game
+const restart = document.getElementById("restart");
+restart.addEventListener("click", restartGame);
+
+function restartGame() {
+  fishImg.src = "./img/10550885.png";
+  initialSharkInterval = 5000;
+  sharkInterval = initialSharkInterval;
+  ctx.clearRect(0, 0, game.width, game.height);
+  document.addEventListener("keydown", movementHandler);
+  previousSharkTime = Date.now();
+  chicoCharacter.render();
+  shark.render();
+}
+
 // Level up:
+
+// twoSharks = new Character(randomX, randomY, twoSharksImg, 200, 420);
+// when you win
+// create a variable counter
+// every time you make it to the end add by 100 once you make it to 500 points you win and display a
+// message: you win
+function winGame() {
+  const winningMessage = document.createElement("div");
+  winningMessage.textContent = "Congratulations You win!";
+  const youWinMsg = document.getElementById("score");
+  youWinMsg.appendChild(winningMessage);
+}
+
+function score500(e) {}
