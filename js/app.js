@@ -12,12 +12,7 @@ const fishImg = document.getElementById("chico-fish");
 let initialSharkInterval = 5000;
 let sharkInterval = initialSharkInterval;
 let previousSharkTime = Date.now();
-// fishImg.style.position = "absolute";
-// fishImg.style.width = "100px";
-// fishImg.style.height = "100px";
-// fishImg.style.display = "block";
-// fishImg.style.top = "350px";
-// fishImg.style.left = "500px";
+
 
 const sharkImg = document.getElementById("shark");
 const twoSharksImg = document.getElementById("two-sharks");
@@ -78,25 +73,36 @@ class Character {
 // KEYBOARD LOGIC =================
 function movementHandler(e) {
   console.log("--movement: " + e.key);
+
+  const movementSpeed = 20;
+
   if (e.key === "ArrowUp" || e.key === "w") {
-    chicoCharacter.y - 10 >= 0 ? (chicoCharacter.y -= 10) : null;
+    chicoCharacter.y - movementSpeed >= 0
+      ? (chicoCharacter.y -= movementSpeed)
+      : null;
   } else if (e.key === "ArrowDown" || e.key === "s") {
     console.log("game height :", game.height);
-    chicoCharacter.y + 10 <= game.height - chicoCharacter.height
-      ? (chicoCharacter.y += 10)
+    chicoCharacter.y + movementSpeed <= game.height - chicoCharacter.height
+      ? (chicoCharacter.y += movementSpeed)
       : null;
   } else if (e.key === "ArrowRight" || e.key === "d") {
-    chicoCharacter.x + 10 <= game.width - chicoCharacter.width
-      ? (chicoCharacter.x += 10)
-      : null;
+    if (chicoCharacter.x + movementSpeed >= game.width - chicoCharacter.width) {
+      newScore = Number(score.textContent) + 100;
+      score.textContent = newScore;
+      chicoCharacter.x = 0;
+      sharkInterval -= 2000;
+      shark.x += 100;
+    } else {
+      chicoCharacter.x += movementSpeed;
+    }
   } else if (e.key === "ArrowLeft" || e.key === "a") {
-    chicoCharacter.x - 10 >= 0 ? (chicoCharacter.x -= 10) : null;
+    chicoCharacter.x - movementSpeed >= 0
+      ? (chicoCharacter.x -= movementSpeed)
+      : null;
   }
 }
 
-function sharkMovement(e) {
-  twoSharks.push(e);
-}
+
 
 // ====================== HELPER FUNCTIONS ======================= //
 
