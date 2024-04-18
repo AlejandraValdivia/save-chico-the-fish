@@ -10,4 +10,6 @@
 
 ### Otherwise, if the shark gets you.. You die! :(
 
+![save-chico-the-fish](img/save-chico-wireframe.png)
 ![save-chico-the-fish](img/save-chico-screenshot.png)
+
