@@ -1,4 +1,3 @@
-// Global DOM manipulation / variables
 const game = document.getElementById("game");
 const movement = document.getElementById("movement");
 const score = document.getElementById("score");
@@ -13,47 +12,26 @@ let initialSharkInterval = 5000;
 let sharkInterval = initialSharkInterval;
 let previousSharkTime = Date.now();
 
-
 const sharkImg = document.getElementById("shark");
 const twoSharksImg = document.getElementById("two-sharks");
-// console.log(sharkImg);
+
 // ====================== PAINT INTIAL SCREEN ======================= //
-// EVENT LISTENERS
 window.addEventListener("DOMContentLoaded", function () {
   console.log("DOMContentLoaded");
   chicoCharacter = new Character(200, 280, fishImg, 200, 250);
   shark = new Character(620, 400, sharkImg, 300, 300);
-  //   twoSharks = new Character(200, 300, twoSharksImg, 300, 300); //
 
-  console.log("shark", sharkImg);
-  // run a game loop
   const runGame = setInterval(gameLoop, 60);
 });
 
 document.addEventListener("keydown", movementHandler);
 
 // ====================== SETUP FOR CANVAS RENDERING ======================= //
-// 2D rendering context for canvas element
-// This is used for drawing shapes, text, images, etc.
+
 game.setAttribute("height", getComputedStyle(game)["height"]);
 game.setAttribute("width", getComputedStyle(game)["width"]);
 
 // ====================== ENTITIES ======================= //
-class Crawler {
-  constructor(x, y, color, width, height) {
-    this.x = x;
-    this.y = y;
-    this.color = color;
-    this.width = width;
-    this.height = height;
-    this.alive = true;
-
-    this.render = function () {
-      ctx.fillStyle = this.color;
-      ctx.fillRect(this.x, this.y, this.width, this.height);
-    };
-  }
-}
 
 class Character {
   constructor(x, y, image, height, width) {
@@ -72,8 +50,6 @@ class Character {
 
 // KEYBOARD LOGIC =================
 function movementHandler(e) {
-  console.log("--movement: " + e.key);
-
   const movementSpeed = 20;
 
   if (e.key === "ArrowUp" || e.key === "w") {
@@ -102,8 +78,6 @@ function movementHandler(e) {
   }
 }
 
-
-
 // ====================== HELPER FUNCTIONS ======================= //
 
 function addNewShark() {
@@ -130,7 +104,6 @@ function addNewShark() {
 }
 
 // ====================== GAME PROCESSES ======================= //
-// This function takes care of the game and everytyhing the characters are doing
 function gameLoop() {
   ctx.clearRect(0, 0, game.width, game.height);
   movement.textContent = `X: ${chicoCharacter.x}\nY: ${chicoCharacter.y}`;
@@ -159,26 +132,21 @@ function gameLoop() {
 
 // ====================== COLLISION DETECTION ======================= //
 function detectHit(player, opp) {
-  // hittest returns a boolean
   let hitTest =
     player.y + player.height > opp.y &&
     player.y < opp.y + opp.height &&
     player.x + player.width > opp.x &&
     player.x < opp.x + opp.width;
-  // console.log("we have a hit", hitTest);
+
   if (hitTest) {
     fishImg.src = "./img/bones.png";
     chicoCharacter.x = 200;
     chicoCharacter.y = 280;
 
-    // call loose function
     lostGame();
 
     document.removeEventListener("keydown", movementHandler);
-    // add100 points to the current score
-    // console.log(score.textContent); // dataType? Number
 
-    // update status
     setTimeout(function () {
       status.textContent = "The shark is hit!";
       const typed = new Typed("#status", {
@@ -186,30 +154,21 @@ function detectHit(player, opp) {
         typeSpeed: 50,
         backSpeed: 50,
         backDelay: 1000,
-        // loop: true
       });
     }, 250);
 
     setTimeout(function () {
       status.textContent = "Oh, no!! The shark is back!";
     }, 10000);
-    // return a new shrek with the addNewShrek function
-    return addNewShark(); // true
+    return addNewShark(); 
   } else {
     return false;
   }
 }
-// ====================== EXTRAS ======================= //
-// --------- Restart game
-//  when someone clicks on the restart button make an event listener, call a function
-// that i have to make (restartGame) reset all of my important varibles
-//initialSharkInterval, sharkInterval
-//change the shark.x position to update the previousShark time to Date.Now(), clear canvas
-// render chicoCarachter
 
+// ====================== EXTRAS ======================= //
 const restart = document.getElementById("restart");
 restart.addEventListener("click", restartGame);
-
 function restartGame() {
   fishImg.src = "./img/10550885.png";
   let newScore = 0;
@@ -231,24 +190,16 @@ function restartGame() {
   }
 }
 
-// Level up:
-
-// twoSharks = new Character(randomX, randomY, twoSharksImg, 200, 420);
-// when you win
-// create a variable counter
-// every time you make it to the end add by 100 once you make it to 500 points you win and display a
-// message: you win
-
 function winGame() {
   const winningMessage = document.createElement("div");
   winningMessage.setAttribute("class", "win-message");
   winningMessage.textContent = "Congratulations You win!";
   winningMessage.style.color = "green";
   winningMessage.style.fontSize = "24px";
-  winningMessage.style.position = "absolute"; // Position the message
-  winningMessage.style.top = "50%"; // Center vertically
-  winningMessage.style.left = "50%"; // Center horizontally
-  winningMessage.style.transform = "translate(-50%, -50%)"; // Center the message
+  winningMessage.style.position = "absolute";
+  winningMessage.style.top = "50%";
+  winningMessage.style.left = "50%";
+  winningMessage.style.transform = "translate(-50%, -50%)";
   document.body.appendChild(winningMessage);
 }
 
@@ -258,9 +209,9 @@ function lostGame() {
   lostMessage.textContent = "Sorry You lost!";
   lostMessage.style.color = "red";
   lostMessage.style.fontSize = "24px";
-  lostMessage.style.position = "absolute"; // Position the message
-  lostMessage.style.top = "50%"; // Center vertically
-  lostMessage.style.left = "50%"; // Center horizontally
-  lostMessage.style.transform = "translate(-50%, -50%)"; // Center the message
+  lostMessage.style.position = "absolute";
+  lostMessage.style.top = "50%";
+  lostMessage.style.left = "50%";
+  lostMessage.style.transform = "translate(-50%, -50%)";
   document.body.appendChild(lostMessage);
 }
