@@ -1,3 +1,4 @@
+// Global variables
 const game = document.getElementById("game");
 const movement = document.getElementById("movement");
 const score = document.getElementById("score");
@@ -11,20 +12,23 @@ const fishImg = document.getElementById("chico-fish");
 let initialSharkInterval = 5000;
 let sharkInterval = initialSharkInterval;
 let previousSharkTime = Date.now();
-
 const sharkImg = document.getElementById("shark");
+const dolphin = document.getElementById("dolphin");
+
+// --- Restart game variable -------
+const restart = document.getElementById("restart");
+restart.addEventListener("click", () => restartGame());
 
 // ====================== PAINT INTIAL SCREEN ======================= //
 window.addEventListener("DOMContentLoaded", function () {
-  console.log("DOMContentLoaded");
   chicoCharacter = new Character(200, 280, fishImg, 200, 250);
   shark = new Character(620, 400, sharkImg, 300, 300);
 
   setInterval(() => {
     addFishAround();
-  }, 2000); // 
+  }, 2000); //
 
-  const runGame = setInterval(gameLoop, 60,);
+  const runGame = setInterval(gameLoop, 60);
 });
 
 document.addEventListener("keydown", movementHandler);
@@ -71,16 +75,13 @@ function addFishAround() {
         Math.random() * game.width,
         Math.random() * game.height,
         randomFishImage,
-        50, 
+        50,
         50
       );
-      swimmingFishArray.push(newFish); 
+      swimmingFishArray.push(newFish);
     };
-  }, 1000);
+  }, 2000);
 }
-
-
-
 
 // KEYBOARD LOGIC =================
 function movementHandler(e) {
@@ -113,19 +114,17 @@ function movementHandler(e) {
 }
 
 // ====================== HELPER FUNCTIONS ======================= //
-
 function addNewShark() {
   shark.alive = false;
   setTimeout(function () {
     let randomX = Math.floor(Math.random() * game.width - 50);
     let randomY = Math.floor(Math.random() * game.height - 90);
-    
+
     shark = new Character(randomX, randomY, sharkImg, 200, 420);
   }, 1000);
 
   return true;
 }
-
 
 // ====================== GAME PROCESSES ======================= //
 function gameLoop() {
@@ -155,9 +154,6 @@ function gameLoop() {
     let hit = detectHit(chicoCharacter, shark);
   }
   chicoCharacter.render();
-  swimmingFishArray.forEach((fish) => {
-    fish.render();
-  });
 }
 
 // ====================== COLLISION DETECTION ======================= //
@@ -177,7 +173,6 @@ function detectHit(player, opp) {
 
     document.removeEventListener("keydown", movementHandler);
 
-   
     return addNewShark();
   } else {
     return false;
@@ -185,11 +180,10 @@ function detectHit(player, opp) {
 }
 
 // ====================== EXTRAS ======================= //
-const restart = document.getElementById("restart");
-restart.addEventListener("click", restartGame);
+
 function restartGame() {
   fishImg.src = "./img/10550885.png";
-  let newScore = 0;
+  newScore = 0;
   score.textContent = newScore;
   initialSharkInterval = 5000;
   sharkInterval = initialSharkInterval;
@@ -198,11 +192,11 @@ function restartGame() {
   previousSharkTime = Date.now();
   chicoCharacter.render();
   shark.render();
-  const winMessage = document.querySelector(".win-message");
+  const winMessage = document.getElementById("win-message");
   if (winMessage) {
     winMessage.remove();
   }
-  const lostMessage = document.querySelector(".lost-message");
+  const lostMessage = document.getElementById("lost-message");
   if (lostMessage) {
     lostMessage.remove();
   }
@@ -210,7 +204,7 @@ function restartGame() {
 
 function winGame() {
   const winningMessage = document.createElement("div");
-  winningMessage.setAttribute("class", "win-message");
+  winningMessage.setAttribute("id", "win-message");
   winningMessage.textContent = "Congratulations You win!";
   winningMessage.style.color = "green";
   winningMessage.style.fontSize = "24px";
@@ -224,7 +218,7 @@ function winGame() {
 
 function lostGame() {
   const lostMessage = document.createElement("div");
-  lostMessage.setAttribute("class", "lost-message");
+  lostMessage.setAttribute("id", "lost-message");
   lostMessage.textContent = "Sorry You lost!";
   lostMessage.style.color = "red";
   lostMessage.style.fontSize = "24px";
@@ -232,9 +226,5 @@ function lostGame() {
   lostMessage.style.top = "50%";
   lostMessage.style.left = "50%";
   lostMessage.style.transform = "translate(-50%, -50%)";
-
   document.body.appendChild(lostMessage);
 }
-
-
-

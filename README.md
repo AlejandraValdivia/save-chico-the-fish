@@ -1,15 +1,20 @@
-# Save Chico the fish 🐠 #
+# Save Chico the fish 🐠
 
-### A simple and fun javascript game  😃 ###
+### A simple and fun javascript game 😃
 
 ![save-chico-the-fish](img/save-chico-wireframe.png)
-## Technologies used ##
+
+## Technologies used
+
 **HTML, CSS, and JavaScript, AdobeXD**
 
-## Installation instructions ##
-### Fork and clone the repository https://github.com/AlejandraValdivia/save-chico-the-fish to your computer and run the following command in the terminal:  
+## Installation instructions
+
+### Fork and clone the repository https://github.com/AlejandraValdivia/save-chico-the-fish to your computer and run the following command in the terminal:
+
 **open index.html**
-### and view the game in the browser ###
+
+### and view the game in the browser
 
 ### Help our friend Chico escape the hungry shark before he eats him!
 
@@ -19,14 +24,16 @@
 
 ### Otherwise, if the shark gets 🦈 you.. You die! :(
 
-### Save chico the fish game screenshot ###
-
+### Save chico the fish game screenshot
 
 ![save-chico-the-fish](img/save-chico-screenshot.png)
 
-## Unresolved problems ##
-### Game is not able to restart. Game shows win/loss message after hitting "play again" button ###
-### Making the game longer and more complicated to win including levels of complexity and speed ###
+## Unresolved problems
+
+### Game is not able to restart. Game shows win/loss message after hitting "play again" button
+
+### Making the game longer and more complicated to win including levels of complexity and speed
+
 ```javascript
 function gameLoop() {
   ctx.clearRect(0, 0, game.width, game.height);
@@ -54,7 +61,9 @@ function gameLoop() {
   chicoCharacter.render();
 }
 ```
-### Code snipet to include 2 sharks 🦈🦈 popping out chasing chico ###
+
+### Code snipet to include 2 sharks 🦈🦈 popping out chasing chico
+
 ```javascript
 function addNewShark() {
   shark.alive = false;
@@ -82,16 +91,23 @@ function addNewShark() {
 twoSharks = new Character(200, 300, twoSharksImg, 300, 300);
 ```
 
-### I was not able to find free sound effects to include in the game ##
-### I was unable to include a list of fish images that you can use to pick your fish character ###
+### I was not able to find free sound effects to include in the game
+
+### I was unable to include a list of fish images that you can use to pick your fish character
+
 ![save-chico-the-fish](img/2150985122.jpg)
 ![save-chico-the-fish](img/yn2c_dh0k_201217.jpg)
 
-## Future Additions ##
-### More levels of complexity and speed ###
-### Choices of fish character images ###
-### Sound effects ###
-### Win/loss message will disappear when you hit "play again" button" or restart game without refreshing the browser ###
+## Future Additions
 
-### Visit the page that hosts my game in GitHub to get started playing! Have fun!! ###
- [http:https://alejandravaldivia.github.io/save-chico-the-fish/](https://alejandravaldivia.github.io/save-chico-the-fish/)
+### More levels of complexity and speed
+
+### Choices of fish character images
+
+### Sound effects
+
+### Win/loss message will disappear when you hit "play again" button" or restart game without refreshing the browser
+
+### Visit the page that hosts my game in GitHub to get started playing! Have fun!!
+
+[http:https://alejandravaldivia.github.io/save-chico-the-fish/](https://alejandravaldivia.github.io/save-chico-the-fish/)
