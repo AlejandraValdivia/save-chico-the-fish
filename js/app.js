@@ -6,14 +6,13 @@ const ctx = game.getContext("2d");
 let newScore = 0;
 let chicoCharacter;
 let shark;
-let twoSharks;
+let swimmingFish;
 const fishImg = document.getElementById("chico-fish");
 let initialSharkInterval = 5000;
 let sharkInterval = initialSharkInterval;
 let previousSharkTime = Date.now();
 
 const sharkImg = document.getElementById("shark");
-const twoSharksImg = document.getElementById("two-sharks");
 
 // ====================== PAINT INTIAL SCREEN ======================= //
 window.addEventListener("DOMContentLoaded", function () {
@@ -21,7 +20,11 @@ window.addEventListener("DOMContentLoaded", function () {
   chicoCharacter = new Character(200, 280, fishImg, 200, 250);
   shark = new Character(620, 400, sharkImg, 300, 300);
 
-  const runGame = setInterval(gameLoop, 60);
+  setInterval(() => {
+    addFishAround();
+  }, 2000); // 
+
+  const runGame = setInterval(gameLoop, 60,);
 });
 
 document.addEventListener("keydown", movementHandler);
@@ -47,6 +50,37 @@ class Character {
     };
   }
 }
+
+// ====== Fish swimming around =================
+let swimmingFishArray = [];
+
+function addFishAround() {
+  setTimeout(() => {
+    const fishImages = [
+      "img/—Pngtree—yellow fish isolated on white_9144140.png",
+      "img/10582611.png",
+      "img/2150985122.jpg",
+      "img/fishing-png-41470.png",
+      "img/yn2c_dh0k_201217.jpg",
+    ];
+    const randomImageIndex = Math.floor(Math.random() * fishImages.length);
+    const randomFishImage = new Image();
+    randomFishImage.src = fishImages[randomImageIndex];
+    randomFishImage.onload = function () {
+      const newFish = new Character(
+        Math.random() * game.width,
+        Math.random() * game.height,
+        randomFishImage,
+        50, 
+        50
+      );
+      swimmingFishArray.push(newFish); 
+    };
+  }, 1000);
+}
+
+
+
 
 // KEYBOARD LOGIC =================
 function movementHandler(e) {
@@ -85,27 +119,20 @@ function addNewShark() {
   setTimeout(function () {
     let randomX = Math.floor(Math.random() * game.width - 50);
     let randomY = Math.floor(Math.random() * game.height - 90);
-    const colors = [
-      "yellow",
-      "purple",
-      "cyan",
-      "gold",
-      "blue",
-      "peru",
-      "red",
-      "green",
-    ];
-    let randomIndex = Math.floor(Math.random() * colors.length - 1);
-    let randomColor = colors[randomIndex];
+    
     shark = new Character(randomX, randomY, sharkImg, 200, 420);
   }, 1000);
 
   return true;
 }
 
+
 // ====================== GAME PROCESSES ======================= //
 function gameLoop() {
   ctx.clearRect(0, 0, game.width, game.height);
+  swimmingFishArray.forEach((fish) => {
+    fish.render();
+  });
   movement.textContent = `X: ${chicoCharacter.x}\nY: ${chicoCharacter.y}`;
   if (chicoCharacter.x >= game.width - chicoCharacter.width) {
     newScore = Number(score.textContent) + 100;
@@ -128,6 +155,9 @@ function gameLoop() {
     let hit = detectHit(chicoCharacter, shark);
   }
   chicoCharacter.render();
+  swimmingFishArray.forEach((fish) => {
+    fish.render();
+  });
 }
 
 // ====================== COLLISION DETECTION ======================= //
@@ -147,20 +177,8 @@ function detectHit(player, opp) {
 
     document.removeEventListener("keydown", movementHandler);
 
-    setTimeout(function () {
-      status.textContent = "The shark is hit!";
-      const typed = new Typed("#status", {
-        strings: ["The shark is hit!", "You got him!", "Target acquired!"],
-        typeSpeed: 50,
-        backSpeed: 50,
-        backDelay: 1000,
-      });
-    }, 250);
-
-    setTimeout(function () {
-      status.textContent = "Oh, no!! The shark is back!";
-    }, 10000);
-    return addNewShark(); 
+   
+    return addNewShark();
   } else {
     return false;
   }
@@ -200,6 +218,7 @@ function winGame() {
   winningMessage.style.top = "50%";
   winningMessage.style.left = "50%";
   winningMessage.style.transform = "translate(-50%, -50%)";
+  shark.alive = false;
   document.body.appendChild(winningMessage);
 }
 
@@ -213,5 +232,9 @@ function lostGame() {
   lostMessage.style.top = "50%";
   lostMessage.style.left = "50%";
   lostMessage.style.transform = "translate(-50%, -50%)";
+
   document.body.appendChild(lostMessage);
 }
+
+
+
