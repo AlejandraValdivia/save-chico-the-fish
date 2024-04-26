@@ -61,7 +61,8 @@ function addFishAround() {
       "img/10582611.png",
       "img/fishing-png-41470.png",
       "img/10717802.png",
-      'img/pngimg.com - dolphin_PNG9123.png'
+      'img/pngimg.com - dolphin_PNG9123.png',
+      'img/transparent-octopus-octopus-swirly-tentacles-pink-purple-colorful-octopus-with-swirling-tentacles-on-black66160395eb6b04.91676288.png'
     ];
     const randomImageIndex = Math.floor(Math.random() * fishImages.length);
     const randomFishImage = new Image();
