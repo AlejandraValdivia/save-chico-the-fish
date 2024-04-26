@@ -1,6 +1,8 @@
 # Save Chico the fish 🐠 from the hungry shark! 🦈
 
-### A fun javascript game 😃
+### Visit the page that hosts my game in GitHub to get started playing! Have fun!!
+
+[http:https://alejandravaldivia.github.io/save-chico-the-fish/](https://alejandravaldivia.github.io/save-chico-the-fish/)
 
 ![save-chico-the-fish](img/save-chico-wireframe-1.jpeg)
 
@@ -14,17 +16,17 @@ I decided to adapt my childhood game to the game of a small fish called Chico wh
 
 I created the wireframes using Adobe XD. Although there are many options online for getting free game sprites, I preferred a more pixel-perfect cartoonization of the characters and the animation.
 
+## Javascript
 
-## Javascript ##
-| Functions              	| Description                                                              	|
-|------------------------	|--------------------------------------------------------------------------	|
-| Character              	| Constructor to create Chico and Shark characters                         	|
-| addFishAround()        	| Add fish and sea animals swimming around on the screen every two seconds 	|
-| addNewShark()          	| Display the shark swimming around randomly                               	|
-| gameLoop()             	| Keeps track of characters interaction                                    	|
-| movementHandler(e)     	| Detects character movements inside the canvas screen                     	|
-| detectHit(player, opp) 	| Detects collision between chico and the shark                            	|
-| restartGame()          	| Restarts the game when hitting the 'play again' button                   	|
+| Functions              | Description                                                              |
+| ---------------------- | ------------------------------------------------------------------------ |
+| Character              | Constructor to create Chico and Shark characters                         |
+| addFishAround()        | Add fish and sea animals swimming around on the screen every two seconds |
+| addNewShark()          | Display the shark swimming around randomly                               |
+| gameLoop()             | Keeps track of characters interaction                                    |
+| movementHandler(e)     | Detects character movements inside the canvas screen                     |
+| detectHit(player, opp) | Detects collision between chico and the shark                            |
+| restartGame()          | Restarts the game when hitting the 'play again' button                   |
 
 I used the class Character to create `Chico` and the `Shark` characters.
 
@@ -260,12 +262,15 @@ function restartGame() {
 The `restart()` function resets the game state when is called. It changes chico's image to the original image at the start of the game, clears the `swimmingfishArray`, resets the score, sets the shark intervals, adds an event listener for keydown, updates the `shark` and `chicoCharacter`'s position, removes any win or lost messages, and then calls itself recursively.
 
 The `winGame()`function is evaluated in the `gameLoop()` function when chicoCharacter newScore is === 300 or higher
+
 ```javascript
 if (newScore === 300) {
-    winGame();
-  }
+  winGame();
+}
 ```
-then the `wingGame()` function is called. 
+
+then the `wingGame()` function is called.
+
 ```javascript
 function winGame() {
   const winningMessage = document.createElement("div");
@@ -286,10 +291,12 @@ function winGame() {
   document.body.appendChild(winningMessage);
 }
 ```
+
 If you score 300 points or higher and scaped the shark, You Win!!
 ![save-chico-the-fish](img/save-chico-wireframe-win.jpeg)
 
 Otherwise, the `lostGame()` function is evaluated when in the function `detectit()`, a collision is detected when the shark's position is too close to chicoCharacter and it creates a collision and kills chico, then the function `lostGame()` is called, displaying the lostMessage on the screen:
+
 ```javascript
 function lostGame() {
   const lostMessage = document.createElement("div");
@@ -309,6 +316,7 @@ function lostGame() {
   document.body.appendChild(lostMessage);
 }
 ```
+
 Otherwise, if the shark gets 🦈 you.. You die! :(
 ![save-chico-the-fish](img/save-chico-wireframe-lost.jpeg)
 
@@ -337,150 +345,8 @@ Use `W`, `S`, `A`, `D` keys and or `Arrow keys` to swim through the game.
 
 🔴 I was not able to find free sound effects to include in the game.
 
-CSS stylesheet
-
-```css
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  text-align: center;
-  background-color: rgb(182, 202, 255);
-}
-
-h1,
-h2 {
-  font-family: "Bowlby One SC", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-canvas {
-  background-image: url("../img/4162773.jpg");
-  background-size: cover;
-  width: 100%;
-  height: 85vh;
-  z-index: 20;
-}
-
-#container {
-  max-width: 100rem;
-  height: 100vh;
-  background-color: aqua;
-  margin: 0 auto;
-  padding: 1rem;
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-rows: 0.15fr 0.5fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-areas:
-    "top-left top-left top-left top-left top-right top-right top-right top-right"
-    "game game game game game game game game";
-}
-
-#top-left,
-#top-right,
-#bottom-left,
-#bottom-right {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f5f3ff;
-  padding: 0;
-}
-
-#top-right {
-  background-color: #f5f3ff;
-}
-
-main {
-  grid-area: game;
-}
-
-button {
-  margin: 0 2rem;
-  position: relative;
-  cursor: pointer;
-  background-color: #ea9393;
-  color: #fff;
-  padding: 1rem;
-  border: transparent;
-}
-```
-
-HTML code
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Save Chico the Fish game</title>
-    <link rel="stylesheet" href="./css/style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Holtwood+One+SC&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <header class="header"></header>
-    <div class="imageContainer">
-      <img
-        id="chico-fish"
-        src="img/10550885.png"
-        alt="illustration of a green fish"
-        style="display: none"
-      />
-      <img
-        id="dolphin"
-        src="./img/pngimg.com - dolphin_PNG9123.png"
-        alt="image of a dolphin"
-        style="display: none;"
-      />
-      <img
-        id="shark"
-        src="./img/pngimg.com - shark_PNG18817.png"
-        alt="image of a shark"
-        style="display: none"
-      />
-    </div>
-    <div id="container" cla>
-      <aside id="top-left"><button id="restart">Play again</button></aside>
-      <aside id="top-left">
-        <p id="score"></p>
-      </aside>
-      <aside id="top-left"><h1>SAVE CHICO</h1></aside>
-      <aside id="top-left"><h3 id="movement"></h3></aside>
-      <aside id="top-right">
-        <p>Use W, A, S, D or Arrow keys to move the fish</p>
-      </aside>
-      <main>
-        <canvas id="game" width="100%" height="100%"
-          ><!--Game goes here-- Let's play!!--></canvas
-        >
-      </main>
-    </div>
-    <!-- typed.js -->
-    <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <script src="./js/app.js"></script>
-  </body>
-</html>
-```
-
 ## Future Additions
 
 🎮 More levels of complexity and speed
 
 🔊 Sound effects
-
-### Visit the page that hosts my game in GitHub to get started playing! Have fun!!
-
-[http:https://alejandravaldivia.github.io/save-chico-the-fish/](https://alejandravaldivia.github.io/save-chico-the-fish/)
