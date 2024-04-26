@@ -1,38 +1,47 @@
-# Save Chico the fish 🐠
+# Save Chico the fish 🐠 from the hungry shark! 🦈
 
-### A simple and fun javascript game 😃
+### A fun javascript game 😃
 
-![save-chico-the-fish](img/save-chico-wireframe.png)
+![save-chico-the-fish](img/save-chico-wireframe-1.jpeg)
 
 ## Technologies used
 
-**HTML, CSS, and JavaScript, AdobeXD**
+HTML, CSS, and JavaScript
+q
+## Steps to install on local computer
 
-## Installation instructions
+`Fork` and `clone` the repository
+https://github.com/AlejandraValdivia/save-chico-the-fish to your computer and run the following command in the terminal:
 
-### Fork and clone the repository https://github.com/AlejandraValdivia/save-chico-the-fish to your computer and run the following command in the terminal:
+`open index.html`
 
-**open index.html**
+and view the game in the browser.
 
-### and view the game in the browser
+## Game Instructions
 
-### Help our friend Chico escape the hungry shark before he eats him!
+Help our friend Chico escape the hungry shark before he eats him!
 
-### Use W, S, A, D keys and Arrow keys to swim through the game
+Use `W`, `S`, `A`, `D` keys and or `Arrow keys` to swim through the game.
 
-### If you score 300 points or higher, You Win!!
+If you score 300 points or higher and scaped the shark, You Win!!
+![save-chico-the-fish](img/save-chico-wireframe-win.jpeg)
 
-### Otherwise, if the shark gets 🦈 you.. You die! :(
+Otherwise, if the shark gets 🦈 you.. You die! :(
+![save-chico-the-fish](img/save-chico-wireframe-lost.jpeg)
 
 ### Save chico the fish game screenshot
 
-![save-chico-the-fish](img/save-chico-screenshot.png)
+![save-chico-the-fish](img/save-chico-screenshot.jpeg)
 
 ## Unresolved problems
 
-### Game is not able to restart. Game shows win/loss message after hitting "play again" button
+Making the game longer and more complicated to win including levels of complexity and speed.
 
-### Making the game longer and more complicated to win including levels of complexity and speed
+I was not able to find free sound effects to include in the game.
+
+## Code Snippets
+
+Game loop
 
 ```javascript
 function gameLoop() {
@@ -62,7 +71,40 @@ function gameLoop() {
 }
 ```
 
-### Code snipet to include 2 sharks 🦈🦈 popping out chasing chico
+Code snippet to display fish swimming around randomly
+
+```javascript
+let swimmingFishArray = [];
+
+function addFishAround() {
+  setTimeout(() => {
+    const fishImages = [
+      "img/—Pngtree—yellow fish isolated on white_9144140.png",
+      "img/10582592.png",
+      "img/10582595.png",
+      "img/10582611.png",
+      "img/fishing-png-41470.png",
+      "img/10717802.png",
+    ];
+    const randomImageIndex = Math.floor(Math.random() * fishImages.length);
+    const randomFishImage = new Image();
+    randomFishImage.src = fishImages[randomImageIndex];
+
+    randomFishImage.onload = function () {
+      const newFish = new Character(
+        Math.random() * game.width,
+        Math.random() * game.height,
+        randomFishImage,
+        50,
+        50
+      );
+      swimmingFishArray.push(newFish);
+    };
+  }, 2000);
+}
+```
+
+Code snippet of the hungry shark 🦈 popping out chasing chico
 
 ```javascript
 function addNewShark() {
@@ -87,26 +129,15 @@ function addNewShark() {
 
   return true;
 }
-
-twoSharks = new Character(200, 300, twoSharksImg, 300, 300);
 ```
-
-### I was not able to find free sound effects to include in the game
-
-### I was unable to include a list of fish images that you can use to pick your fish character
-
-![save-chico-the-fish](img/2150985122.jpg)
-![save-chico-the-fish](img/yn2c_dh0k_201217.jpg)
 
 ## Future Additions
 
-### More levels of complexity and speed
+More levels of complexity and speed
 
-### Choices of fish character images
+Choices of fish character images
 
-### Sound effects
-
-### Win/loss message will disappear when you hit "play again" button" or restart game without refreshing the browser
+Sound effects
 
 ### Visit the page that hosts my game in GitHub to get started playing! Have fun!!
 
